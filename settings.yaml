@@ -1,0 +1,6 @@
+default_time: 30 # seconds
+show_time: 1 # seconds
+root: lcd
+lcd_name: common
+msg_topic: messages
+status_topic: status
