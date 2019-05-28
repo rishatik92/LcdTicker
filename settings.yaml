@@ -1,5 +1,9 @@
 default_time: 30 # seconds
 show_time: 1 # seconds
+
+# will be listen 2 topics:
+# /lcd/common/messages/status
+# /lcd/common/messages/error
 topics:
    - lcd:
      - common:
