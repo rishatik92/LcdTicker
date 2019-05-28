@@ -5,13 +5,6 @@ from time import sleep, time
 
 from ruamel import yaml
 
-SETTINGS_FILE = "settings.yaml"
-
-
-def get_settings(filename):
-    with open(filename) as file:
-        return yaml.safe_load(file)
-
 
 class Dispatcher(object):
     def __init__(self, show_time: int, default_time: int, print_function):
@@ -76,9 +69,15 @@ class Dispatcher(object):
             self._d[msg['id']] = msg
 
 
+
+SETTINGS_FILE = "settings.yaml"
+def get_settings(filename):
+    with open(filename) as file:
+        return yaml.safe_load(file)
+
 def main():
     """simple scenario working"""
-    
+
     settings = get_settings(SETTINGS_FILE)
     show_time = settings["show_time"]
     default_time = settings["default_time"]

@@ -2,11 +2,21 @@ default_time: 30 # seconds
 show_time: 1 # seconds
 
 # will be listen 2 topics:
-# /lcd/common/messages/status
-# /lcd/common/messages/error
+# lcd/common/messages/status
+# lcd/common/messages/error
 topics:
    - lcd:
      - common:
        - messages:
          - status
          - error
+
+
+#mqtt settings
+mqtt:
+   broker_address: #MQTT_IP_OR_DOMAIN
+   cert: ca.crt #IF YOU'LL USE SSL
+   port: 1883
+   name: lcd
+   username: MQTT_USERNAME
+   password: MQTT_PASSWORD
