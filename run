@@ -1,0 +1,24 @@
+from ruamel import yaml
+
+with open("settings.yaml") as settings:
+    d = (yaml.safe_load(settings))
+
+
+
+def glob_list(d, start=""):
+    if type(d) is dict:
+        for k, v in d.items():
+            yield from glob_list(v, start=start+f"{k}")
+    elif type(d) is list:
+        if start:
+            start += "/"
+        for k in d:
+            yield from glob_list(k, start=start)
+    else:
+        yield f"{start}{d}" # forever string
+
+
+
+print("there MQTT topics will be listen")
+for i in glob_list(d["topics"]):
+    print(i)
