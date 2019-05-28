@@ -28,7 +28,7 @@ class Dispatcher(object):
 
     def get_empty_msg(self):
         now = datetime.datetime.now()
-        return f"Nothing to show.. last showtime: {now.hour}:{now.minute}:{now.second}"
+        return f"{now.hour}:{now.minute}:{now.second} Nothing to show.. last showtime: "
 
     def get_message(self):
         """ Message format help """

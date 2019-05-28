@@ -32,11 +32,14 @@ def main():
     screen = lcd()
     dispatcher = Dispatcher(settings["show_time"], settings["default_time"], screen.lcd_display_string)
     def callback(client, userdata, message):
+        message = message.payload.decode("utf-8")
         msg = None
+        print(f"incomed message! {message}")
         try:
             msg = json.loads(message)
         except Exception as ex:
-            pass
+            print(ex)
+        print(f"msg: {msg}")
         if msg and "txt" in msg and "id" in msg:
             dispatcher.put_message(msg)
 
