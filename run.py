@@ -27,11 +27,20 @@ def get_mqtt_client(mqtt_info, tls = False):
 
 def main():
     settings = get_settings(SETTINGS_FILE)
-
     mqtt_client = get_mqtt_client(settings["mqtt"])
     screen = lcd()
-    dispatcher = Dispatcher(settings["show_time"], settings["default_time"], screen.lcd_display_string)
+    
+    def callback_print(print_str):
+        """callback for lcd screen"""
+        
+        screen.lcd_clear()
+        screen.lcd_display_string(print_str)
+        
+    dispatcher = Dispatcher(settings["show_time"], settings["default_time"], callback_print)
+    
     def callback(client, userdata, message):
+        """calback for mqtt client on_message"""
+        
         message = message.payload.decode("utf-8")
         msg = None
         print(f"incomed message! {message}")
