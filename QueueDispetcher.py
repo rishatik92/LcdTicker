@@ -7,6 +7,10 @@ from ruamel import yaml
 
 
 class Dispatcher(object):
+    """ Ticker dispatcher class."""
+
+    MAX_SHOW_TIME = 86400 #seconds in one day
+
     def __init__(self, show_time: int, default_time: int, print_function):
         self.print = print_function
         self._l = Lock()
@@ -50,8 +54,18 @@ class Dispatcher(object):
             if self._d:
                 key, msg = self._d.popitem(last=False)
                 while True:  # iterate all expired messages
-                    if 'expire' not in msg:
+
+                    #First of all: looking to the 'expire' valur
+                    try:
+                        msg['expire'] = float(msg['expire'])
+                    except Exception as ex:
+                        print(f"unable to parse \"expire\" value: {ex}")
                         msg['expire'] = time() + self.default_time
+                    finaly: # if incoming value is very big,  cut off
+                        if msg['expire'] > time() + self.MAX_SHOW_TIME:
+                            print(f"Time to show message: {msg} is very big, shorting to max time"}
+                            msg['expire'] = time() + self.MAX_SHOW_TIME
+
                     if msg['expire'] < time():
                         del key, msg
                         if self._d:
@@ -65,6 +79,8 @@ class Dispatcher(object):
             return result_msg
 
     def put_message(self, msg):
+        """ Add message to queue, message must to consist keys: id, txt. """
+
         with self._l:
             self._d[msg['id']] = msg
 
