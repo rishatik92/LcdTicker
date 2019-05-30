@@ -188,13 +188,10 @@ class lcd:
             sub_str = ""
             i = 0
             for i in range(len(words)):
-                if len(f"{sub_str} {words[i]}")> self.WIDTH:
+                if len(f"{sub_str} {words[i]}".lstrip())> self.WIDTH:
                     break
                 else:
-                    if sub_str:
-                        sub_str += " " + words[i]
-                    else:
-                        sub_str = words[i]
+                    sub_str = f"{sub_str} {words[i]}".lstrip()
         words = words[i:]
         self.lcd_display_string(f"{' '.join([sub_str])}", line=line+1)
         line += 1
