@@ -107,13 +107,16 @@ Rs = 0b00000001  # Register select bit
 
 class lcd:
     # initializes objects and lcd
-    def __init__(self):
+    def __init__(self, width = 16, lines =2):
         self.lcd_device = i2c_device(ADDRESS)
-
+        
         self.lcd_write(0x03)
         self.lcd_write(0x03)
         self.lcd_write(0x03)
         self.lcd_write(0x02)
+
+        self.WIDTH = width
+        self.LINES= lines
 
         self.lcd_write(LCD_FUNCTIONSET | LCD_2LINE | LCD_5x8DOTS | LCD_4BITMODE)
         self.lcd_write(LCD_DISPLAYCONTROL | LCD_DISPLAYON)
@@ -177,6 +180,26 @@ class lcd:
         for char in fontdata:
             for line in char:
                 self.lcd_write_char(line)
+
+    def lcd_print_lines(self, pr_str):
+        line = 0
+        words = pr_str.split()
+        while line < self.LINES:
+            sub_str = ""
+            i = 0
+            for i in range(len(words)):
+                if len(f"{sub_str} {words[i]}")> self.WIDTH:
+                    break
+                else:
+                    if sub_str:
+                        sub_str += " " + words[i]
+                    else:
+                        sub_str = words[i]
+        words = words[i:]
+        self.lcd_display_string(f"{' '.join([sub_str])}", line=line+1)
+        line += 1
+
+
 
 from time import sleep
 if __name__ == '__main__':
