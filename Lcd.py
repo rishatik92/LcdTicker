@@ -184,17 +184,18 @@ class lcd:
     def lcd_print_lines(self, pr_str):
         line = 0
         words = pr_str.split()
-        while line < self.LINES:
+        while line < self.LINES and words:
             sub_str = ""
-            i = 0
+            count = 0
             for i in range(len(words)):
                 if len(f"{sub_str} {words[i]}".lstrip())> self.WIDTH:
                     break
                 else:
                     sub_str = f"{sub_str} {words[i]}".lstrip()
-        words = words[i:]
-        self.lcd_display_string(f"{' '.join([sub_str])}", line=line+1)
-        line += 1
+                count +=1
+            words = words[count:]
+            self.lcd_display_string(sub_str, line=line+1)
+            line += 1
 
 
 
