@@ -11,11 +11,14 @@ class Dispatcher(object):
 
     MAX_SHOW_TIME = 86400 #seconds in one day
 
-    def __init__(self, show_time: int, default_time: int, print_function):
+    def __init__(self, show_time: int, default_time: int, print_function, text_empty=None):
         self.print = print_function
         self._l = Lock()
         self.show_time = show_time
         self.default_time = default_time
+        if not text_empty:
+            text_empty = "Nothing to show."
+        self.__text = text_empty
         self._d = OrderedDict()
         self.__stop = Event()
         self.__th = Thread(name="Dispatcher_thread", target=self.worker)
@@ -32,7 +35,7 @@ class Dispatcher(object):
 
     def get_empty_msg(self):
         now = datetime.datetime.now()
-        return f"{now.hour}:{now.minute}:{now.second} Nothing to show.. last showtime: "
+        return f"{now.hour:02d}:{now.minute:02d}:{now.second:02d} {self.__text}"
 
     def get_message(self):
         """ Message format help """
