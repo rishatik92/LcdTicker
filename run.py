@@ -34,7 +34,7 @@ def main():
         """callback for lcd screen"""
         
         screen.lcd_clear()
-        screen.lcd_display_string(print_str)
+        screen.lcd_print_lines(print_str)
         
     dispatcher = Dispatcher(settings["show_time"], settings["default_time"], callback_print)
     
