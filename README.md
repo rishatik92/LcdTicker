@@ -9,6 +9,7 @@ Required Libraries:
 - smbus2
 
 ## using:
-send to listening topic json message with: "id","txt" and (not required "expire" in posix time):
-topic: lcd/common/messages/status
-{"txt":"test message", "id":"Hass"}
+### send to listening topic json message with: "id","txt" and (not required "expire" in posix time):
+
+#### topic: lcd/common/messages/status
+#### {"txt":"test message", "id":"Hass"}

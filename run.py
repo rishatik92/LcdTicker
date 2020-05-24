@@ -27,7 +27,8 @@ def get_mqtt_client(mqtt_info, tls = False):
 
 def main():
     settings = get_settings(SETTINGS_FILE)
-    mqtt_client = get_mqtt_client(settings["mqtt"])
+    mqtt_settings = settings["mqtt"]
+    mqtt_client = get_mqtt_client(mqtt_settings, tls = "cert" in mqtt_settings)
     screen = lcd()
 
     def callback_print(print_str):
