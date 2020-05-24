@@ -64,9 +64,9 @@ class Dispatcher(object):
                     except Exception as ex:
                         print(f"unable to parse \"expire\" value: {ex}")
                         msg['expire'] = time() + self.default_time
-                    finaly: # if incoming value is very big,  cut off
+                    finally: # if incoming value is very big, cut off
                         if msg['expire'] > time() + self.MAX_SHOW_TIME:
-                            print(f"Time to show message: {msg} is very big, shorting to max time"}
+                            print(f"Time to show message: {msg} is very big, shorting to max time")
                             msg['expire'] = time() + self.MAX_SHOW_TIME
 
                     if msg['expire'] < time():
