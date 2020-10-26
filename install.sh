@@ -1,4 +1,6 @@
 #!/bin/bash
+sudo pip3 install smbus2
+
 USERNAME=pi
 SERVICE_NAME=lcd-ticker@$USERNAME
 CURENT_FILE=$(readlink -f $0)
